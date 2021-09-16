@@ -20,6 +20,8 @@ var gameOver,gameOverImage;
 
 var jump, gameOverSom, checkPoint;
 
+var larguraJogo = window.innerWidth
+
 function reset(){
   pontuacao = 0;
   gameOver.visible = false
@@ -32,7 +34,7 @@ function reset(){
 
 function criaCacto(){
   if(frameCount%70 ===0){
-  var cacto = createSprite(600,169,10,40);
+  var cacto = createSprite(larguraJogo,169,10,40);
  
   cacto.velocityX = -(6+pontuacao/100);  
   
@@ -66,7 +68,7 @@ var numeroCacto = Math.round(random(1,6));
 function criaNuvem(){  
   
   if(frameCount%88 ===0) {
- nuvem = createSprite(600,100,40,10); 
+ nuvem = createSprite(larguraJogo,100,40,10); 
  nuvem.addImage(nuvemImagem);
  nuvem.velocityX = -4;   
  nuvem.scale = 0.6;
@@ -104,10 +106,9 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(600,200);
+  createCanvas(larguraJogo,200);
   
   var mensagem = "O meu"
-  
   
   trex = createSprite(50, 150, 20, 50);
   trex.addAnimation("correndo", trexCorrendo);
@@ -116,7 +117,7 @@ function setup() {
   trex.setCollider("circle",0,0,40);
   trex.debug = false; 
   
-  solo = createSprite(300,190,600,20);  
+  solo = createSprite(larguraJogo/2,180,larguraJogo,20);  
   solo.addImage("solo", soloImagem);
   solo.x = solo.width/2;
   
@@ -126,11 +127,11 @@ function setup() {
   grupoDeCactos = new Group();
   grupoDeNuvens = new Group();
   
-  restart = createSprite(300,100,20,20);
+  restart = createSprite(larguraJogo/2,100,20,20);
   restart.addImage(restartImage);
   restart.scale = 0.55;
   
-  gameOver = createSprite(300,45,20,20);
+  gameOver = createSprite(larguraJogo/2,45,20,20);
   gameOver.addImage(gameOverImage);
   gameOver.scale = 1;
   
@@ -142,7 +143,7 @@ function setup() {
 function draw() {
   background("white");
   
-  text("Pontuação: "+pontuacao,500,30);
+  text("Pontuação: "+pontuacao,larguraJogo-100,10);
   
   trex.velocityY = trex.velocityY + 0.5;  
   if(estadoJogar ==="jogar"){
@@ -195,7 +196,7 @@ reset()
 }
   } else if(estadoJogar ==="iniciar"){
     
-    text ("APERTE SPACE PARA COMEÇAR",240,100);  
+    text ("APERTE SPACE PARA COMEÇAR",larguraJogo/2,100);  
     
     
     if(keyDown("space")){
