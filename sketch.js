@@ -58,7 +58,7 @@ var numeroCacto = Math.round(random(1,6));
    default:break
 }
    cacto.scale = 0.8;
-   cacto.lifetime = 155;  
+   cacto.lifetime = larguraJogo;  
   
     grupoDeCactos.add(cacto);  
 }    
@@ -75,7 +75,7 @@ function criaNuvem(){
  nuvem.y = Math.round(random(10,100));
  nuvem.depth = trex.depth;
  trex.depth = trex.depth+1;  
- nuvem.lifetime = 155;
+ nuvem.lifetime = larguraJogo;
     
  grupoDeNuvens.add(nuvem);   
 }
@@ -155,9 +155,10 @@ function draw() {
     solo.x = solo.width/2; 
   }
     
-    if ((keyDown("up")||keyDown("space") ) && trex.y>155) {
+    if ((keyDown("up")||keyDown("space")||touches.length>0 ) && trex.y>155) {
     trex.velocityY = -10;
-    jump.play()  
+    jump.play() 
+    touches = [] 
   }
     
          
@@ -191,8 +192,9 @@ function draw() {
 
     
     trex.changeAnimation("FALICEU",trexFaliceu);
-    if(mousePressedOver(restart)){
+    if(mousePressedOver(restart)|| touches.length>0){
 reset()
+touches = []
 }
   } else if(estadoJogar ==="iniciar"){
     
